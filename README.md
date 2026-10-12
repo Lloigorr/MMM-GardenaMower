@@ -66,42 +66,32 @@ Add this to your  config.js :
 
 Do not poll too often.
 A long update interval is strongly recommended. A value of 15 minutes is a good starting point for stable operation and helps avoid unnecessary API usage.
-Displayed data
+
+### Displayed data
+
 The module currently uses the following values from the API:
-Value
-Source
-Name
- COMMON.attributes.name.value 
-Battery level
- COMMON.attributes.batteryLevel.value 
-Battery state
- COMMON.attributes.batteryState.value 
-RF link state
- COMMON.attributes.rfLinkState.value 
-RF link level
- COMMON.attributes.rfLinkLevel.value 
-Mower state
- MOWER.attributes.state.value 
-Activity
- MOWER.attributes.activity.value 
-Operating hours
- MOWER.attributes.operatingHours.value 
-Error code
- MOWER.attributes.lastErrorCode.value  (if available)
-Options
+| Value             | Source 
+|-------------------|--------------------------------------------------------
+| `Name`            | `COMMON.attributes.name.value` 
+| `Battery level`   | `COMMON.attributes.batteryLevel.value` 
+| `Battery state`   | `COMMON.attributes.batteryState.value` 
+| `RF link state`   | `COMMON.attributes.rfLinkState.value` 
+| `RF link level`   | `COMMON.attributes.rfLinkLevel.value` 
+| `Mower state`     | `MOWER.attributes.state.value` 
+| `Activity`        | `MOWER.attributes.activity.value` 
+| `Operating hours` | `MOWER.attributes.operatingHours.value` 
+| `Error code`      | `MOWER.attributes.lastErrorCode.value`  (if available)
+
+### Options
+
 The following flags can be set to  true  or  false :
-Option
-Description
- showBattery 
-Displays the current battery level
- showActivity 
-Displays the current mower activity
- showTime 
-Displays total operating hours
- showConnection 
-Displays RF connection state and link quality
- showError_as_Text 
-Displays the error as text instead of only the numeric error code
+| Option              | Description
+|---------------------|--------------------------------------------------
+| `showBattery`       | Displays the current battery level
+| `showActivity`      | Displays the current mower activity
+| `showTime`          | Displays total operating hours
+| `showConnection`    | Displays RF connection state and link quality
+| `showError_as_Text` | Displays the error as text instead of only the numeric error code
 
  ## Notes
  
