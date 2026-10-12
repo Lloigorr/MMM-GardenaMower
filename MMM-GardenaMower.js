@@ -43,7 +43,7 @@ Module.register("MMM-GardenaMower", {
 		switch (errorCode) {
 			case 0: return "Unerwarteter Fehler";
 			case "OUTSIDE_WORKING_AREA": return "Außerhalb des Arbeitsbereichs";
-			case 2: return "Kein Schleifensignal";
+			case "OFF_HATCH_CLOSED": return "Kein Schleifensignal";
 			case 3: return "Falsches Schleifensignal";
 			case 4: return "Problem mit dem Schleifensensor vorne";
 			case 5: return "Problem mit dem Schleifensensor hinten";
