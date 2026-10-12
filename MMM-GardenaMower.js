@@ -112,6 +112,8 @@ Module.register("MMM-GardenaMower", {
 				return "Klappe offen";
 			case "OK_LEAVING":
 				return "verlässt Ladestation";
+			case "NONE"
+				return "hat ein Problem";
 			default:
 				return activity || "Unbekannt";
 		}
