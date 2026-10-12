@@ -1,4 +1,4 @@
- MMM-GardenaMower
+# MMM-GardenaMower
 
 A MagicMirror² module to display the current status of a GARDENA smart mower using the official GARDENA smart system API from Husqvarna Group.
 
