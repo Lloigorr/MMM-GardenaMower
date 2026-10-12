@@ -154,18 +154,18 @@ Module.register("MMM-GardenaMower", {
 		const rfLinkState = mower.rfLinkState;
 		const rfLinkLevel = mower.rfLinkLevel;
 
-		let html = `${name}`;
+		let html = `<strong><i class="fas fa-solid fa-fan"></i> ${name}</strong><br>`;
 
 		if (this.config.showActivity) {
-			html += ` &nbsp;|&nbsp; ${activity}`;
+			html += ` &nbsp;|&nbsp; ${activity}<br>`;
 		}
 
 		if (this.config.showBattery && battery !== null && battery !== undefined) {
-			html += ` &nbsp;|&nbsp; Akku: ${battery}%`;
+			html += ` &nbsp;|&nbsp; Akku: ${battery}%<br>`;
 		}
 
 		if (this.config.showTime && operatingHours !== null && operatingHours !== undefined) {
-			html += ` &nbsp;|&nbsp; Betriebsstunden: ${Number(operatingHours).toFixed(0)}h`;
+			html += ` &nbsp;|&nbsp; Betriebsstunden: ${Number(operatingHours).toFixed(0)}h<br>`;
 		}
 
 		if (this.config.showConnection && rfLinkState) {
@@ -176,13 +176,13 @@ Module.register("MMM-GardenaMower", {
 			}
 		}
 
-		html += ` &nbsp;|&nbsp; Status: ${state}`;
+		html += ` &nbsp;|&nbsp; Status: ${state}<br>`;
 
 		if (errorCode !== null && errorCode !== undefined && errorCode !== 0) {
 			if (this.config.showError_as_Text) {
 				html += ` &nbsp;|&nbsp; Fehler: ${this.getErrorMessage(errorCode)}`;
 			} else {
-				html += ` &nbsp;|&nbsp; Fehlercode: ${errorCode}`;
+				html += ` &nbsp;|&nbsp; Fehlercode: ${errorCode}<br>`;
 			}
 		}
 
