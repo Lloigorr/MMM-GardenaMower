@@ -97,17 +97,17 @@ Module.register("MMM-GardenaMower", {
 			case "OK_SEARCHING":
 				return "sucht Ladestation";
 			case "OK_CHARGING":
-				return "lädt";
+				return "lädt den Akku";
 			case "PARKED_TIMER":
-				return "geparkt (Timer)";
+				return "ist geparkt (Timer)";
 			case "PARKED_PARK_SELECTED":
-				return "geparkt";
+				return "ist geparkt";
 			case "PARKED_AUTOTIMER":
-				return "geparkt (AutoTimer)";
+				return " ist geparkt (AutoTimer)";
 			case "PAUSED":
-				return "pausiert";
+				return "mach Pause";
 			case "OFF_DISABLED":
-				return "ausgeschaltet";
+				return "ist ausgeschaltet";
 			case "OFF_HATCH_OPEN":
 				return "Klappe offen";
 			case "OK_LEAVING":
@@ -154,10 +154,10 @@ Module.register("MMM-GardenaMower", {
 		const rfLinkState = mower.rfLinkState;
 		const rfLinkLevel = mower.rfLinkLevel;
 
-		let html = `<strong><i class="fas fa-solid fa-fan"></i> ${name}</strong><br>`;
+		let html = `<strong><i class="fas fa-solid fa-fan"></i> ${name}</strong>`;
 
 		if (this.config.showActivity) {
-			html += ` &nbsp;|&nbsp; ${activity}<br>`;
+			html += ` &nbsp;&nbsp; ${activity}<br>`;
 		}
 
 		if (this.config.showBattery && battery !== null && battery !== undefined) {
@@ -170,9 +170,9 @@ Module.register("MMM-GardenaMower", {
 
 		if (this.config.showConnection && rfLinkState) {
 			if (rfLinkLevel !== null && rfLinkLevel !== undefined) {
-				html += ` &nbsp;|&nbsp; Funk: ${rfLinkState} (${rfLinkLevel}%)`;
+				html += ` &nbsp;|&nbsp; Verbindung: ${rfLinkState} (${rfLinkLevel}%)<br>`;
 			} else {
-				html += ` &nbsp;|&nbsp; Funk: ${rfLinkState}`;
+				html += ` &nbsp;|&nbsp; Verbindung: ${rfLinkState}<br>`;
 			}
 		}
 
