@@ -1,0 +1,23 @@
+{
+  "name": "mmm-gardenamower",
+  "version": "1.0.0",
+  "description": "MagicMirror² module for displaying status data from a GARDENA smart mower via the GARDENA smart system API.",
+  "main": "MMM-GardenaMower.js",
+  "license": "MIT",
+  "repository": {
+	"type": "git",
+	"url": "https://github.com/Lloigorr/MMM-GardenaMower.git"
+  },
+  "keywords": [
+	"MagicMirror",
+	"MagicMirror2",
+	"gardena",
+	"smart-system",
+	"mower",
+	"husqvarna",
+	"mirror"
+  ],
+  "dependencies": {
+	"node-fetch": "^2.6.7"
+  }
+}
