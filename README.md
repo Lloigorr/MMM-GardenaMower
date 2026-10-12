@@ -36,7 +36,7 @@ The module reads mower data from the `MOWER` and `COMMON` services returned in t
 
 ```bash
 cd ~/MagicMirror/modules
-git clone <YOUR_FORK_URL> MMM-GardenaMower
+git clone https://github.com/Lloigorr/MMM-GardenaMower
 cd MMM-GardenaMower
 npm install
 ```
