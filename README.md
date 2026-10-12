@@ -96,14 +96,9 @@ The following flags can be set to  true  or  false :
  ## Notes
  
 •  This module is adapted for GARDENA smart mowers, not Husqvarna Automower Connect.
+
 •  The module currently expects mower data from the  MOWER  and  COMMON  services in the GARDENA location response.
-•  Some values from the original Husqvarna module are no longer shown, because they are not available in the current GARDENA response used by this fork, for example:
-•  charging cycles
-•  total charging time
-•  drive distance
-•  average speed
-•  cutting time percentage
-•  searching time percentage
+
 
 ## License
 
