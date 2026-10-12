@@ -120,7 +120,7 @@ Displays the error as text instead of only the numeric error code
  ##  Origin
  
 Original project based on:
-•   MMM-HusqvarnaAutomower  by ASteinsdoerfer
+•   [MMM-HusqvarnaAutomower](https://github.com/ASteinsdoerfer/MMM-HusqvarnaAutomower)  by [ASteinsdoerfer](https://github.com/ASteinsdoerfer)
     
 Big THANK YOU for your ground work and idea!
     
