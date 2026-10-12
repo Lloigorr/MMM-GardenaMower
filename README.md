@@ -58,7 +58,7 @@ Add this to your  config.js :
       module: "MMM-GardenaMower",
       position: "middle_center",
       config: {
-          client_id: "Your Client ID form https://developer.husqvarnagroup.cloud/",
+          client_id: "Your Client ID from https://developer.husqvarnagroup.cloud/",
           client_secret: "Your client secret from https://developer.husqvarnagroup.cloud/",
           updateInterval: 15 * 60 * 1000, // 15 minutes recommended
           showBattery: true,
