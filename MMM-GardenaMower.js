@@ -53,11 +53,11 @@ Module.register("MMM-GardenaMower", {
 			case 9: return "Eingeklemmt";
 			case 10: return "Umgekippt";
 			case 11: return "Batterie schwach";
-			case 12: return "Batterie leer";
+			case "EMPTY_BATTERY": return "Batterie leer";
 			case 13: return "Kein Antrieb";
-			case 14: return "Mäher angehoben";
-			case 15: return "Angehoben";
-			case 16: return "In Ladestation festgefahren";
+			case "LIFTED": return "Mäher angehoben";
+			case "WAIT_STOP_PRESSED": return "STOP-Taste gedrückt";
+			case "PARKED_DAILY_LIMIT_REACHED": return "tägliches Limit erreicht";
 			case 17: return "Ladestation blockiert";
 			case 18: return "Problem mit Kollisionssensor hinten";
 			case 19: return "Problem mit Kollisionssensor vorne";
