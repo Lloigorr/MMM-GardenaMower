@@ -117,10 +117,13 @@ Displays the error as text instead of only the numeric error code
 •  cutting time percentage
 •  searching time percentage
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+
  ##  Origin
  
-Original project based on:
-•   [MMM-HusqvarnaAutomower](https://github.com/ASteinsdoerfer/MMM-HusqvarnaAutomower)  by [ASteinsdoerfer](https://github.com/ASteinsdoerfer)
+Original project based on [MMM-HusqvarnaAutomower](https://github.com/ASteinsdoerfer/MMM-HusqvarnaAutomower)  by [ASteinsdoerfer](https://github.com/ASteinsdoerfer)
     
 Big THANK YOU for your ground work and idea!
     
