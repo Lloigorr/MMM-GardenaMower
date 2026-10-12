@@ -85,7 +85,7 @@ Module.register("MMM-GardenaMower", {
 			case 72: return "Alarm! Mäher geneigt";
 			case 74: return "Alarm! Außerhalb des Geozauns";
 			case 77: return "Kommunikationsmodul nicht verfügbar";
-			case 90: return "Kein Strom in der Ladestation";
+			case "UPSIDE_DOWN": return "Mäher steht auf dem Kopf";
 			default: return `Fehlercode ${errorCode}`;
 		}
 	},
@@ -112,6 +112,8 @@ Module.register("MMM-GardenaMower", {
 				return "Klappe offen";
 			case "OK_LEAVING":
 				return "verlässt Ladestation";
+			case "NONE":
+				return "hat ein Problem";
 			default:
 				return activity || "Unbekannt";
 		}
