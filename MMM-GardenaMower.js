@@ -99,13 +99,13 @@ Module.register("MMM-GardenaMower", {
 			case "OK_CHARGING":
 				return "lädt den Akku";
 			case "PARKED_TIMER":
-				return "ist geparkt (Timer)";
+				return "ist geparkt (Zeitplan)";
 			case "PARKED_PARK_SELECTED":
 				return "ist geparkt";
 			case "PARKED_AUTOTIMER":
 				return " ist geparkt (AutoTimer)";
 			case "PAUSED":
-				return "mach Pause";
+				return "macht Pause";
 			case "OFF_DISABLED":
 				return "ist ausgeschaltet";
 			case "OFF_HATCH_OPEN":
@@ -161,22 +161,22 @@ Module.register("MMM-GardenaMower", {
 		}
 
 		if (this.config.showBattery && battery !== null && battery !== undefined) {
-			html += ` &nbsp;|&nbsp; Akku: ${battery}%<br>`;
+			html += ` &nbsp; Akku: ${battery}%<br>`;
 		}
 
 		if (this.config.showTime && operatingHours !== null && operatingHours !== undefined) {
-			html += ` &nbsp;|&nbsp; Betriebsstunden: ${Number(operatingHours).toFixed(0)}h<br>`;
+			html += ` &nbsp; Betriebsstunden: ${Number(operatingHours).toFixed(0)}h<br>`;
 		}
 
 		if (this.config.showConnection && rfLinkState) {
 			if (rfLinkLevel !== null && rfLinkLevel !== undefined) {
-				html += ` &nbsp;|&nbsp; Verbindung: ${rfLinkState} (${rfLinkLevel}%)<br>`;
+				html += ` &nbsp; Verbindung: ${rfLinkState} (${rfLinkLevel}%)<br>`;
 			} else {
-				html += ` &nbsp;|&nbsp; Verbindung: ${rfLinkState}<br>`;
+				html += ` &nbsp; Verbindung: ${rfLinkState}<br>`;
 			}
 		}
 
-		html += ` &nbsp;|&nbsp; Status: ${state}<br>`;
+		html += ` &nbsp; Status: ${state}<br>`;
 
 		if (errorCode !== null && errorCode !== undefined && errorCode !== 0) {
 			if (this.config.showError_as_Text) {
