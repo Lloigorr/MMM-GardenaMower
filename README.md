@@ -41,6 +41,14 @@ cd MMM-GardenaMower
 npm install
 ```
 
+## Get API 
+
+• Log in to your Husqvarna Group account as shown [here](https://developer.husqvarnagroup.cloud/docs/get-started#1log-in-with-your-husqvarna-group-account-same-as-husqvarna-automower-connect-and-gardena-smart-system-credentials)
+
+• Hit "New Application"
+
+• Get your Application key and Application secret
+
 ##  Configuration
 
 Add this to your  config.js :
