@@ -65,7 +65,7 @@ Module.register("MMM-GardenaMower", {
 			case 21: return "Radmotor blockiert links";
 			case 22: return "Problem mit Radantrieb rechts";
 			case 23: return "Problem mit Radantrieb links";
-			case 24: return "Schneidsystem blockiert";
+			case "CUTTING_SYSTEM_BLOCKED": return "Schneidsystem blockiert";
 			case 25: return "Schneidsystem blockiert";
 			case 29: return "Hang zu steil";
 			case 30: return "Problem mit dem Ladesystem";
