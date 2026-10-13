@@ -114,6 +114,8 @@ Module.register("MMM-GardenaMower", {
 				return "verlässt Ladestation";
 			case "NONE":
 				return "hat ein Problem";
+			case "OK_CUTTING_TIMER_OVERRIDDEN":
+				return "mäht (nicht nach Zeitplan)";
 			default:
 				return activity || "Unbekannt";
 		}
