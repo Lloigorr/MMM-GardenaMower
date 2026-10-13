@@ -2,6 +2,8 @@ Module.register("MMM-GardenaMower", {
 
 	defaults: {
 		updateInterval: 15 * 60 * 1000,
+		pauseApiFromHour: 22,
+  		pauseApiToHour: 6,
 		showActivity: true,
 		showBattery: true,
 		showTime: true,
@@ -19,10 +21,24 @@ Module.register("MMM-GardenaMower", {
 	},
 
 	scheduleUpdate() {
-		setInterval(() => {
-			this.sendSocketNotification("GET_MOWER");
-		}, this.config.updateInterval);
-	},
+  setInterval(() => {
+    const now = new Date();
+    const hour = now.getHours();
+
+    const from = this.config.pauseApiFromHour;
+    const to = this.config.pauseApiToHour;
+
+    const inPauseWindow = (from > to)
+      ? (hour >= from || hour < to)
+      : (hour >= from && hour < to);
+
+    if (inPauseWindow) {
+      return;
+    }
+
+    this.sendSocketNotification("GET_MOWER");
+  }, this.config.updateInterval);
+},
 
 	socketNotificationReceived(notification, payload) {
 		if (notification === "MOWER_DATA") {
