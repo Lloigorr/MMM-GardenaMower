@@ -60,7 +60,9 @@ Add this to your  config.js :
       config: {
           client_id: "Your Client ID from https://developer.husqvarnagroup.cloud/",
           client_secret: "Your client secret from https://developer.husqvarnagroup.cloud/",
-          updateInterval: 15 * 60 * 1000, // 15 minutes recommended
+          updateInterval: 15 * 60 * 1000, // 10 minutes recommended
+          pauseApiFromHour: 22, // stop API requests at 10pm
+          pauseApiToHour: 6, // start API requests at 06am
           showBattery: true,
           showActivity: true,
           showTime: true,
@@ -72,8 +74,8 @@ Add this to your  config.js :
 
 ##  Rate limit recommendation
 
-Do not poll too often.
-A long update interval is strongly recommended. A value of 15 minutes is a good starting point for stable operation and helps avoid unnecessary API usage.
+Do not poll too often, check the request limit for API requests at Gardena API Readme.
+A long update interval is strongly recommended. A value of 15 minutes is a good starting point for stable operation when uses 24/7. If requests are stopped at certain times (e.g. at night or when the mower isn't operating), a shorter request interval is possible. 
 
 ### Displayed data
 
