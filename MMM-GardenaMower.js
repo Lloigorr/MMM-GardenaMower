@@ -50,7 +50,7 @@ Module.register("MMM-GardenaMower", {
 			case 6: return "Problem mit dem Schleifensensor links";
 			case 7: return "Problem mit dem Schleifensensor rechts";
 			case 8: return "Falscher PIN-Code";
-			case 9: return "Eingeklemmt";
+			case "TRAPPED": return "Eingeklemmt";
 			case 10: return "Umgekippt";
 			case 11: return "Batterie schwach";
 			case "EMPTY_BATTERY": return "Batterie leer";
@@ -66,7 +66,7 @@ Module.register("MMM-GardenaMower", {
 			case 22: return "Problem mit Radantrieb rechts";
 			case 23: return "Problem mit Radantrieb links";
 			case "CUTTING_SYSTEM_BLOCKED": return "Schneidsystem blockiert";
-			case 25: return "Schneidsystem blockiert";
+			case "OFF_HATCH_OPEN": return "STOP-Taste gedrückt";
 			case 29: return "Hang zu steil";
 			case 30: return "Problem mit dem Ladesystem";
 			case 31: return "Problem mit STOP-Knopf";
