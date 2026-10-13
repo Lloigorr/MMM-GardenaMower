@@ -163,11 +163,11 @@ Module.register("MMM-GardenaMower", {
 		}
 
 		if (this.config.showBattery && battery !== null && battery !== undefined) {
-			html += ` &nbsp; Akku: ${battery}%<br>`;
+			html += ` &nbsp; <i class="fas fa-battery-half"></i> ${battery}%`;
 		}
 
 		if (this.config.showTime && operatingHours !== null && operatingHours !== undefined) {
-			html += ` &nbsp; Betriebsstunden: ${Number(operatingHours).toFixed(0)}h<br>`;
+			html += ` &nbsp; <i class="fa-solid fa-stopwatch"></i> ${Number(operatingHours).toFixed(0)}h<br>`;
 		}
 
 		if (this.config.showConnection && rfLinkState) {
