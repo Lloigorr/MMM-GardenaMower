@@ -6,7 +6,7 @@ The module uses OAuth2 with client credentials, reads the configured GARDENA sma
 
 ### Screenshot
 
-![Screenshot des Moduls](screenshot.png)
+![Screenshot des Moduls](Screenshot.png)
 
 ##  Functions
 
