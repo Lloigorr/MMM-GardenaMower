@@ -19,6 +19,10 @@ Module.register("MMM-GardenaMower", {
 		this.sendSocketNotification("GET_MOWER");
 
 		this.scheduleUpdate();
+
+		setInterval(() => {
+    		this.updateDom();
+  		}, 60 * 1000);
 	},
 
 	scheduleUpdate() {
