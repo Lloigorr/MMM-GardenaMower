@@ -236,7 +236,7 @@ Module.register("MMM-GardenaMower", {
 
 		html += ` &nbsp; ${state}`;
 
-		if (errorCode !== null && errorCode !== undefined && errorCode !== 0) {
+		if (errorCode) {
 			if (this.config.showError_as_Text) {
 				html += ` &nbsp; ${this.getErrorMessage(errorCode)}`;
 			} else {
