@@ -146,7 +146,7 @@ Module.register("MMM-GardenaMower", {
 	getStateText(state) {
 		switch (state) {
 			case "OK":
-				return "OK";
+				return "Alles Okay!";
 			case "WARNING":
 				return "Warnung";
 			case "ERROR":
@@ -234,11 +234,11 @@ Module.register("MMM-GardenaMower", {
 			}
 		}
 
-		html += ` &nbsp; Status: ${state}<br>`;
+		html += ` &nbsp; ${state}`;
 
 		if (errorCode !== null && errorCode !== undefined && errorCode !== 0) {
 			if (this.config.showError_as_Text) {
-				html += ` &nbsp; Fehler: ${this.getErrorMessage(errorCode)}`;
+				html += ` &nbsp; ${this.getErrorMessage(errorCode)}`;
 			} else {
 				html += ` &nbsp; Fehlercode: ${errorCode}<br>`;
 			}
