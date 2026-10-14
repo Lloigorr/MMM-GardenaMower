@@ -12,7 +12,7 @@ module.exports = NodeHelper.create({
 	socketNotificationReceived(notification, payload) {
 		if (notification === "CONFIG") {
 			this.config = payload;
-			this.getAccessToken();
+			return;
 		}
 
 		if (notification === "GET_MOWER") {
@@ -49,8 +49,6 @@ module.exports = NodeHelper.create({
 			this.tokenExpires = Date.now() + (data.expires_in * 1000) - 60000;
 
 			console.log("Gardena Token OK");
-
-			this.getMowerStatus();
 		} catch (error) {
 			console.error("Token Fehler:", error);
 			this.sendSocketNotification("MOWER_ERROR", {
@@ -114,8 +112,16 @@ module.exports = NodeHelper.create({
 	},
 
 	async getMowerStatus() {
+		if (!this.config) {
+			return;
+		}
+		
 		if (!this.accessToken || Date.now() > this.tokenExpires) {
-			return this.getAccessToken();
+			await this.getAccessToken();
+
+			if (!this.accessToken) {
+      			return;
+			}	
 		}
 
 		try {
