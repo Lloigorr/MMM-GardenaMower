@@ -148,9 +148,9 @@ Module.register("MMM-GardenaMower", {
 			case "OK":
 				return "Alles Okay!";
 			case "WARNING":
-				return "Warnung";
+				return "Warnung:";
 			case "ERROR":
-				return "Fehler";
+				return "Fehler:";
 			default:
 				return state || "Unbekannt";
 		}
