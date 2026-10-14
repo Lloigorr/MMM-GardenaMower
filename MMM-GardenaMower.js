@@ -22,7 +22,7 @@ Module.register("MMM-GardenaMower", {
 
 		setInterval(() => {
     		this.updateDom();
-  		}, 60 * 1000);
+  		}, 15 * 1000);
 	},
 
 	scheduleUpdate() {
