@@ -4,7 +4,7 @@ A MagicMirror² module to display the current status of a GARDENA smart mower us
 
 The module uses OAuth2 with client credentials, reads the configured GARDENA smart system location, detects the mower automatically, and displays key mower data directly in MagicMirror.
 
-### Screenshot
+### Screenshots
 
 ![Screenshot des Moduls](Screenshot1.png) ![Screenshot2 des Moduls](Screenshot2.png)
 
