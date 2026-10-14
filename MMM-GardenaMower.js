@@ -240,7 +240,7 @@ Module.register("MMM-GardenaMower", {
 			if (this.config.showError_as_Text) {
 				html += ` &nbsp; ${this.getErrorMessage(errorCode)}`;
 			} else {
-				html += ` &nbsp; Fehlercode: ${errorCode}<br>`;
+				html += ` &nbsp; Fehlercode: ${errorCode}`;
 			}
 		}
 
