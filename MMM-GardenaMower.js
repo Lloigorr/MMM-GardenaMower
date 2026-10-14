@@ -228,9 +228,9 @@ Module.register("MMM-GardenaMower", {
 
 		if (this.config.showConnection && rfLinkState) {
 			if (rfLinkLevel !== null && rfLinkLevel !== undefined) {
-				html += ` &nbsp; Verbindung: ${rfLinkState} (${rfLinkLevel}%)<br>`;
+				html += ` &nbsp; <i class="fa-solid fa-wifi"></i> ${rfLinkState} (${rfLinkLevel}%)<br>`;
 			} else {
-				html += ` &nbsp; Verbindung: ${rfLinkState}<br>`;
+				html += ` &nbsp; <i class="fa-solid fa-wifi"></i> ${rfLinkState}<br>`;
 			}
 		}
 
