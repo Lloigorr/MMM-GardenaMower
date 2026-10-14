@@ -13,6 +13,7 @@ Module.register("MMM-GardenaMower", {
 
 	start() {
 		this.mowerData = null;
+		this.lastUpdateTime = null;
 
 		this.sendSocketNotification("CONFIG", this.config);
 		this.sendSocketNotification("GET_MOWER");
@@ -43,6 +44,7 @@ Module.register("MMM-GardenaMower", {
 	socketNotificationReceived(notification, payload) {
 		if (notification === "MOWER_DATA") {
 			this.mowerData = payload;
+			this.lastUpdateTime = new Date();
 			this.updateDom();
 		}
 
@@ -150,6 +152,38 @@ Module.register("MMM-GardenaMower", {
 		}
 	},
 
+	getLastUpdateText() {
+  		if (!this.lastUpdateTime) {
+    		return "noch keine Aktualisierung";
+  		}
+
+  		const timeString = this.lastUpdateTime.toLocaleTimeString("de-DE", {
+    		hour: "2-digit",
+    		minute: "2-digit"
+  		});
+
+  		const diffMs = Date.now() - this.lastUpdateTime.getTime();
+  		const diffMin = Math.floor(diffMs / 60000);
+
+  		if (diffMin < 1) {
+    		return `${timeString} (gerade eben)`;
+  		}
+
+  		if (diffMin === 1) {
+    		return `${timeString} (vor 1 Minute)`;
+  		}
+
+  		if (diffMin < 60) {
+    		return `${timeString} (vor ${diffMin} Minuten)`;
+  		}
+
+  		const hours = Math.floor(diffMin / 60);
+  		const minutes = diffMin % 60;
+
+  		return `${timeString} (vor ${hours}h ${minutes}m)`;
+	},
+
+	
 	getDom() {
 		const wrapper = document.createElement("div");
 
@@ -206,6 +240,9 @@ Module.register("MMM-GardenaMower", {
 			}
 		}
 
+		const lastUpdateText = this.getLastUpdateText();
+		html += `<br><span class="xsmall dimmed">Letzte Aktualisierung: ${lastUpdateText}</span>`;
+		
 		wrapper.innerHTML = html;
 		return wrapper;
 	}
