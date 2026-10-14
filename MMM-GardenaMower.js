@@ -16,36 +16,17 @@ Module.register("MMM-GardenaMower", {
 		this.lastUpdateTime = null;
 
 		this.sendSocketNotification("CONFIG", this.config);
-//		this.sendSocketNotification("GET_MOWER");
-
-		if (!this.isInPauseWindow()) {
-    		this.sendSocketNotification("GET_MOWER");
-  		}		
+		this.sendSocketNotification("GET_MOWER");
+		
 		this.scheduleUpdate();
 
 		setInterval(() => {
     		this.updateDom();
   		}, 15 * 1000);
 	},
-
-	isInPauseWindow() {
-  		const now = new Date();
-  		const hour = now.getHours();
-
-  		const from = this.config.pauseApiFromHour;
-  		const to = this.config.pauseApiToHour;
-
-  		return (from > to)
-    		? (hour >= from || hour < to)
-    		: (hour >= from && hour < to);
-	},
 	
 	scheduleUpdate() {
   		setInterval(() => {
-    		if (this.isInPauseWindow()) {
-      			return;
-    }
-
     		this.sendSocketNotification("GET_MOWER");
   		}, this.config.updateInterval);
 	},
