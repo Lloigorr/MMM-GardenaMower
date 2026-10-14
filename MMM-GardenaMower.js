@@ -146,7 +146,7 @@ Module.register("MMM-GardenaMower", {
 	getStateText(state) {
 		switch (state) {
 			case "OK":
-				return 'Alles Okay <i class="fa-regular fa-face-smile"></i>';
+				return 'Alles Okay <i class="fa-solid fa-face-smile"></i>';
 			case "WARNING":
 				return "Warnung:";
 			case "ERROR":
