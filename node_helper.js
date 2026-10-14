@@ -21,42 +21,42 @@ module.exports = NodeHelper.create({
 	},
 
 	async getAccessToken() {
-		const params = new URLSearchParams();
-		params.append("grant_type", "client_credentials");
-		params.append("client_id", this.config.client_id);
-		params.append("client_secret", this.config.client_secret);
+  		const params = new URLSearchParams();
+  		params.append("grant_type", "client_credentials");
+  		params.append("client_id", this.config.client_id);
+  		params.append("client_secret", this.config.client_secret);
 
-		try {
-			const response = await fetch(
-				"https://api.authentication.husqvarnagroup.dev/v1/oauth2/token",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/x-www-form-urlencoded"
-					},
-					body: params
-				}
-			);
+  		try {
+   			const response = await fetch(
+      			"https://api.authentication.husqvarnagroup.dev/v1/oauth2/token",
+      			{
+        			method: "POST",
+        			headers: {
+          				"Content-Type": "application/x-www-form-urlencoded"
+        			},
+        			body: params
+      			}
+    		);
 
-			if (!response.ok) {
-				const errorText = await response.text();
-				throw new Error(`Token Fehler ${response.status}: ${errorText}`);
-			}
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Token Fehler ${response.status}: ${errorText}`);
+    }
 
-			const data = await response.json();
+    const data = await response.json();
 
-			this.accessToken = data.access_token;
-			this.tokenExpires = Date.now() + (data.expires_in * 1000) - 60000;
+    this.accessToken = data.access_token;
+    this.tokenExpires = Date.now() + (data.expires_in * 1000) - 60000;
 
-			console.log("Gardena Token OK");
-		} catch (error) {
-			console.error("Token Fehler:", error);
-			this.sendSocketNotification("MOWER_ERROR", {
-				message: "Token konnte nicht geholt werden",
-				details: error.message
-			});
-		}
-	},
+    console.log("Gardena Token OK");
+  } catch (error) {
+    console.error("Token Fehler:", error);
+    this.sendSocketNotification("MOWER_ERROR", {
+      message: "Token konnte nicht geholt werden",
+      details: error.message
+    });
+  }
+},
 
 	async fetchGardena(url) {
 		const response = await fetch(url, {
@@ -111,18 +111,40 @@ module.exports = NodeHelper.create({
 		};
 	},
 
-	async getMowerStatus() {
-		if (!this.config) {
-			return;
-		}
-		
-		if (!this.accessToken || Date.now() > this.tokenExpires) {
-			await this.getAccessToken();
+	isInPauseWindow() {
+  		if (!this.config) {
+    		return false;
+  		}
 
-			if (!this.accessToken) {
-      			return;
-			}	
-		}
+  		const now = new Date();
+  		const hour = now.getHours();
+
+  		const from = this.config.pauseApiFromHour;
+  		const to = this.config.pauseApiToHour;
+
+  		return (from > to)
+    		? (hour >= from || hour < to)
+    		: (hour >= from && hour < to);
+	},
+	
+async getMowerStatus() {
+  if (!this.config) {
+    return;
+  }
+
+  if (this.isInPauseWindow()) {
+    return;
+  }
+
+  if (!this.accessToken || Date.now() > this.tokenExpires) {
+    await this.getAccessToken();
+
+    if (!this.accessToken) {
+      return;
+    }
+  }
+
+  try {
 
 		try {
 			const locationsResponse = await this.fetchGardena("https://api.smart.gardena.dev/v1/locations");
