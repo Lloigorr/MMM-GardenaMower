@@ -10,14 +10,14 @@ module.exports = NodeHelper.create({
 	},
 
 	socketNotificationReceived(notification, payload) {
-		if (notification === "CONFIG") {
-			this.config = payload;
-			return;
-		}
+  		if (notification === "CONFIG") {
+    		this.config = payload;
+    		return;
+  		}
 
-		if (notification === "GET_MOWER") {
-			this.getMowerStatus();
-		}
+  		if (notification === "GET_MOWER") {
+    		this.getMowerStatus();
+  		}
 	},
 
 	async getAccessToken() {
@@ -127,26 +127,24 @@ module.exports = NodeHelper.create({
     		: (hour >= from && hour < to);
 	},
 	
-async getMowerStatus() {
-  if (!this.config) {
-    return;
-  }
+	async getMowerStatus() {
+  		if (!this.config) {
+    		return;
+  		}
 
-  if (this.isInPauseWindow()) {
-    return;
-  }
+  		if (this.isInPauseWindow()) {
+    		return;
+  		}
 
-  if (!this.accessToken || Date.now() > this.tokenExpires) {
-    await this.getAccessToken();
+  		if (!this.accessToken || Date.now() > this.tokenExpires) {
+    		await this.getAccessToken();
 
-    if (!this.accessToken) {
-      return;
-    }
-  }
+    		if (!this.accessToken) {
+      			return;
+    		}
+  		}
 
-  try {
-
-		try {
+  		try {
 			const locationsResponse = await this.fetchGardena("https://api.smart.gardena.dev/v1/locations");
 			const locations = locationsResponse.data || [];
 
