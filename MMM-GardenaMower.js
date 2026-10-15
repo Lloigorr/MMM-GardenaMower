@@ -34,18 +34,18 @@ Module.register("MMM-GardenaMower", {
 //		}, 5000);
 	},
 
-	notificationReceived(notification, payload, sender) {
-		if (notification === "USER_PRESENCE") {
-			const wasInactive = !this.screenActive;
-
-			this.screenActive = true;
-			this.lastPresenceTime = Date.now();
-
-			if (wasInactive) {
-				this.sendSocketNotification("GET_MOWER");
-			}
-		}
-	},
+//	notificationReceived(notification, payload, sender) {
+//		if (notification === "USER_PRESENCE") {
+//			const wasInactive = !this.screenActive;
+//
+//			this.screenActive = true;
+//			this.lastPresenceTime = Date.now();
+//
+//			if (wasInactive) {
+//				this.sendSocketNotification("GET_MOWER");
+//			}
+//		}
+//	},
 	
 	scheduleUpdate() {
   		setInterval(() => {
