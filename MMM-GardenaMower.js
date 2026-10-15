@@ -14,6 +14,8 @@ Module.register("MMM-GardenaMower", {
 	start() {
 		this.mowerData = null;
 		this.lastUpdateTime = null;
+		this.screenActive = true;
+		this.lastPresenceTime = Date.now();
 
 		this.sendSocketNotification("CONFIG", this.config);
 		this.sendSocketNotification("GET_MOWER");
@@ -23,10 +25,34 @@ Module.register("MMM-GardenaMower", {
 		setInterval(() => {
     		this.updateDom();
   		}, 15 * 1000);
+
+		setInterval(() => {
+			const timeoutMs = this.config.deactivateDelay || (15 * 60 * 1000);
+			if (Date.now() - this.lastPresenceTime > timeoutMs) {
+				this.screenActive = false;
+			}
+		}, 5000);
+	},
+
+	notificationReceived(notification, payload, sender) {
+		if (notification === "USER_PRESENCE") {
+			const wasInactive = !this.screenActive;
+
+			this.screenActive = true;
+			this.lastPresenceTime = Date.now();
+
+			if (wasInactive) {
+				this.sendSocketNotification("GET_MOWER");
+			}
+		}
 	},
 	
 	scheduleUpdate() {
   		setInterval(() => {
+			if (!this.screenActive) {
+				return;
+			}
+			
     		this.sendSocketNotification("GET_MOWER");
   		}, this.config.updateInterval);
 	},
