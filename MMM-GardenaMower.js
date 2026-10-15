@@ -32,15 +32,15 @@ Module.register("MMM-GardenaMower", {
 	},
 
 	socketNotificationReceived(notification, payload) {
-		if (notification === "MOWER_DATA") {
-			this.mowerData = payload;
-			this.lastUpdateTime = new Date();
-			this.updateDom();
-		}
+  		if (notification === "MOWER_DATA") {
+    		this.mowerData = payload;
+    		this.lastUpdateTime = new Date();
+    		this.updateDom();
+  		}
 
-		if (notification === "MOWER_ERROR") {
-			console.error("Mäher Fehler:", payload);
-		}
+  		if (notification === "MOWER_ERROR") {
+    		console.error("Mäher Fehler:", payload);
+  		}
 	},
 
 	getErrorMessage(errorCode) {
