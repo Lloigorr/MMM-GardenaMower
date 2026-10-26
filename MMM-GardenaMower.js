@@ -215,7 +215,7 @@ Module.register("MMM-GardenaMower", {
 				this.cachedMowerName ||
 				"Mein Mäher";
 
-			wrapper.textContent = `${name} macht Winterruhe`;
+			wrapper.textContent = `${name} macht Winterruhe.`;
 			return wrapper;
 		}	
 
