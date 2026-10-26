@@ -8,7 +8,7 @@ Module.register("MMM-GardenaMower", {
 		showBattery: true,
 		showTime: true,
 		showConnection: true,
-		showError_as_Text: true
+		showError_as_Text: true,
 		winterMode: false
 	},
 
