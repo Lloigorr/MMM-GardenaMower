@@ -58,9 +58,9 @@ Module.register("MMM-GardenaMower", {
 	},
 
 	socketNotificationReceived(notification, payload) {
-		if (notification === "MOWER-NAME") {
+		if (notification === "MOWER_NAME") {
 			this.cachedMowerName = payload;
-			this.updateDOM();
+			this.updateDom();
 			return;
 		}
 		
