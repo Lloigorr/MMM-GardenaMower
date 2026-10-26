@@ -9,6 +9,7 @@ Module.register("MMM-GardenaMower", {
 		showTime: true,
 		showConnection: true,
 		showError_as_Text: true
+		winterMode: false
 	},
 
 	start() {
@@ -57,6 +58,12 @@ Module.register("MMM-GardenaMower", {
 	},
 
 	socketNotificationReceived(notification, payload) {
+		if (notification === "MOWER-NAME") {
+			this.cachedMowerName = payload;
+			this.updateDOM();
+			return;
+		}
+		
   		if (notification === "MOWER_DATA") {
     		this.mowerData = payload;
     		this.lastUpdateTime = new Date();
@@ -201,6 +208,16 @@ Module.register("MMM-GardenaMower", {
 	
 	getDom() {
 		const wrapper = document.createElement("div");
+
+		if (this.config.winterMode === true) {
+			const name =
+				(this.mowerData && this.mowerData.name) ||
+				this.cachedMowerName ||
+				"Mein Mäher";
+
+			wrapper.textContent = `${name} macht Winterruhe`;
+			return wrapper;
+		}	
 
 		if (!this.mowerData) {
 			wrapper.innerHTML = "Lade Mäherdaten...";
