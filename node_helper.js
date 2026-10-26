@@ -1,5 +1,8 @@
 const NodeHelper = require("node_helper");
 const fetch = require("node-fetch");
+const fs = require("node:fs");
+const path = require("node:path");
+const os = require("node:os");
 
 module.exports = NodeHelper.create({
 
@@ -7,12 +10,43 @@ module.exports = NodeHelper.create({
 		this.accessToken = null;
 		this.tokenExpires = 0;
 		this.config = null;
+		this.cachedMowerName = null;
+
+		this.nameCacheFile = path.join(
+			os.homedir(),
+			".cache",
+			"MMM-GardenaMower",
+			"mower-name.json"
+		);
+
+		try {
+			const cache = JSON.parse(
+				fs.readFileSync(this.nameCacheFile, "utf8")
+			);
+
+			if (typeof cache.name === "string" && cache.name.trim()) {
+				this.cachedMowerName = cache.name.trim();
+			}
+		} catch (error) {
+			if (error.code !== "ENOENT") {
+				console.warn(
+					"[MMM-GardenaMower] Namensdatei konnte nicht gelesen werden:",
+					error.message
+					);
+			}
+		}	
 	},
 
 	socketNotificationReceived(notification, payload) {
   		if (notification === "CONFIG") {
     		this.config = payload;
-    		return;
+
+			this.sendSocketNotification(
+				"MOWER_NAME",
+				this.cachedMowerName
+			);
+
+			return;
   		}
 
   		if (notification === "GET_MOWER") {
@@ -111,6 +145,41 @@ module.exports = NodeHelper.create({
 		};
 	},
 
+	saveMowerName(name) {
+		if (typeof name !== "string") {
+			return;
+		}
+
+		const cleanName = name.trim();
+
+		if (
+			!cleanName ||
+			cleanName === "Unbekannter Mäher" ||
+			cleanName === this.cachedMowerName
+		) {
+			return;
+		}
+
+		try {
+			fs.mkdirSync(path.dirname(this.nameCacheFile), {
+				recursive: true
+			});
+
+			fs.writeFileSync(
+				 this.nameCacheFile,
+				 JSON.stringify({ name: cleanName }, null, 2),
+				 "utf8"
+			);
+
+			this.cachedMowerName = cleanName;
+		} catch (error) {
+			console.warn(
+				"[MMM-GardenaMower] Mähername konnte nicht gespeichert werden:",
+				error.message
+			);
+		}
+	},	
+	
 	isInPauseWindow() {
   		if (!this.config) {
     		return false;
@@ -131,6 +200,10 @@ module.exports = NodeHelper.create({
   		if (!this.config) {
     		return;
   		}
+
+		if (this.config.winterMode === true) {
+			return;
+		}	
 
   		if (this.isInPauseWindow()) {
     		return;
@@ -174,6 +247,7 @@ module.exports = NodeHelper.create({
 				throw new Error("Kein kompatibler Gardena-Mäher gefunden");
 			}
 
+			this.saveMowerName(normalizedMower.name);
 			this.sendSocketNotification("MOWER_DATA", normalizedMower);
 
 		} catch (error) {
