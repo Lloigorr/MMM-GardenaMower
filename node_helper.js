@@ -11,6 +11,7 @@ module.exports = NodeHelper.create({
 		this.tokenExpires = 0;
 		this.config = null;
 		this.cachedMowerName = null;
+		this.cachedLastUpdate = null;
 
 		this.nameCacheFile = path.join(
 			os.homedir(),
@@ -27,6 +28,15 @@ module.exports = NodeHelper.create({
 			if (typeof cache.name === "string" && cache.name.trim()) {
 				this.cachedMowerName = cache.name.trim();
 			}
+
+			if (typeof cache.lastUpdate === "string") {
+				const savedDate = new Date(cache.lastUpdate);
+
+				if (!Number.isNaN(savedDate.getTime())) {
+					this.cachedLastUpdate = savedDate.toISOString();
+				}
+			}	
+				
 		} catch (error) {
 			if (error.code !== "ENOENT") {
 				console.warn(
@@ -46,6 +56,11 @@ module.exports = NodeHelper.create({
 				this.cachedMowerName
 			);
 
+			this.sendSocketNotification(
+				"MOWER_LAST_UPDATE",
+				 this.cachedLastUpdate
+			);
+				
 			return;
   		}
 
@@ -146,40 +161,44 @@ module.exports = NodeHelper.create({
 	},
 
 	saveMowerName(name) {
-		if (typeof name !== "string") {
-			return;
-		}
+		const cleanName =
+			typeof name === "string" ? name.trim() : "";
 
-		const cleanName = name.trim();
+		const nameToSave =
+			cleanName && cleanName !== "Mein Mäher"
+				? cleanName
+				 : this.cachedMowerName;
+		
+		const lastUpdate = new Date().toISOString();
 
-		if (
-			!cleanName ||
-			cleanName === "Unbekannter Mäher" ||
-			cleanName === this.cachedMowerName
-		) {
-			return;
-		}
+  		this.cachedMowerName = nameToSave;
+  		this.cachedLastUpdate = lastUpdate;
 
-		try {
-			fs.mkdirSync(path.dirname(this.nameCacheFile), {
-				recursive: true
-			});
+  		try {
+    		fs.mkdirSync(path.dirname(this.nameCacheFile), {
+      			recursive: true
+    		});
 
-			fs.writeFileSync(
-				 this.nameCacheFile,
-				 JSON.stringify({ name: cleanName }, null, 2),
-				 "utf8"
-			);
-
-			this.cachedMowerName = cleanName;
-		} catch (error) {
-			console.warn(
-				"[MMM-GardenaMower] Mähername konnte nicht gespeichert werden:",
-				error.message
-			);
-		}
-	},	
-	
+    		fs.writeFileSync(
+    			this.nameCacheFile,
+      			JSON.stringify(
+        			{
+          				name: nameToSave,
+          				lastUpdate: lastUpdate
+        			},
+        			null,
+        			2
+      			),
+      			"utf8"
+    		);
+  		} catch (error) {
+    		console.warn(
+      			"[MMM-GardenaMower] Cache konnte nicht gespeichert werden:",
+      			error.message
+    		);
+  		}
+	},
+			
 	isInPauseWindow() {
   		if (!this.config) {
     		return false;
