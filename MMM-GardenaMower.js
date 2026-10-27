@@ -15,8 +15,6 @@ Module.register("MMM-GardenaMower", {
 	start() {
 		this.mowerData = null;
 		this.lastUpdateTime = null;
-//		this.screenActive = true;
-//		this.lastPresenceTime = Date.now();
 
 		this.sendSocketNotification("CONFIG", this.config);
 		this.sendSocketNotification("GET_MOWER");
@@ -26,33 +24,10 @@ Module.register("MMM-GardenaMower", {
 		setInterval(() => {
     		this.updateDom();
   		}, 15 * 1000);
-
-//		setInterval(() => {
-//			const timeoutMs = this.config.deactivateDelay || (15 * 60 * 1000);
-//			if (Date.now() - this.lastPresenceTime > timeoutMs) {
-//				this.screenActive = false;
-//			}
-//		}, 5000);
 	},
-
-//	notificationReceived(notification, payload, sender) {
-//		if (notification === "USER_PRESENCE") {
-//			const wasInactive = !this.screenActive;
-//
-//			this.screenActive = true;
-//			this.lastPresenceTime = Date.now();
-//
-//			if (wasInactive) {
-//				this.sendSocketNotification("GET_MOWER");
-//			}
-//		}
-//	},
 	
 	scheduleUpdate() {
   		setInterval(() => {
-//			if (!this.screenActive) {
-//				return;
-//			}
     		this.sendSocketNotification("GET_MOWER");
   		}, this.config.updateInterval);
 	},
@@ -62,6 +37,22 @@ Module.register("MMM-GardenaMower", {
 			this.cachedMowerName = payload;
 			this.updateDom();
 			return;
+		}
+
+		if (notification === "MOWER_LAST_UPDATE") {
+  			if (
+    			this.config.winterMode === true &&
+    			typeof payload === "string"
+  			) {
+    			const savedDate = new Date(payload);
+
+    			if (!Number.isNaN(savedDate.getTime())) {
+      				this.lastUpdateTime = savedDate;
+      				this.updateDom();
+    			}
+  			}
+
+  			return;
 		}
 		
   		if (notification === "MOWER_DATA") {
@@ -210,13 +201,42 @@ Module.register("MMM-GardenaMower", {
 		const wrapper = document.createElement("div");
 
 		if (this.config.winterMode === true) {
-			const name =
-				(this.mowerData && this.mowerData.name) ||
-				this.cachedMowerName ||
-				"Mein Mäher";
+  			const name =
+    			(this.mowerData && this.mowerData.name) ||
+    			this.cachedMowerName ||
+    			"Mein Mäher";
 
-			wrapper.textContent = `${name} macht Winterruhe.`;
-			return wrapper;
+  			const title = document.createElement("div");
+  			title.textContent = `${name} macht Winterruhe`;
+  			wrapper.appendChild(title);
+
+  			const lastUpdate = document.createElement("div");
+  			lastUpdate.className = "xsmall dimmed";
+
+  			if (
+    			this.lastUpdateTime &&
+    			!Number.isNaN(this.lastUpdateTime.getTime())
+  			) {
+    			const dateText = this.lastUpdateTime.toLocaleString(
+      				"de-DE",
+      				{
+        				day: "2-digit",
+        				month: "2-digit",
+        				year: "numeric",
+        				hour: "2-digit",
+        				minute: "2-digit"
+      				}
+    			);
+
+    			lastUpdate.textContent =
+      				`Letzte Aktualisierung: ${dateText}`;
+  			} else {
+    			lastUpdate.textContent =
+      				"Letzte Aktualisierung: Zeitpunkt noch nicht gespeichert";
+  			}
+
+  			wrapper.appendChild(lastUpdate);
+  			return wrapper;
 		}	
 
 		if (!this.mowerData) {
