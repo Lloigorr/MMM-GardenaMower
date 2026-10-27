@@ -207,7 +207,7 @@ Module.register("MMM-GardenaMower", {
     			"Mein Mäher";
 
   			const title = document.createElement("div");
-  			title.textContent = `${name} macht Winterruhe`;
+  			title.textContent = `${name} macht Winterruhe.`;
   			wrapper.appendChild(title);
 
   			const lastUpdate = document.createElement("div");
